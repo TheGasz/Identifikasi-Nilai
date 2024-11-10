@@ -1,32 +1,104 @@
-# Prerequisites
-*.d
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+#include <iostream>
+#include <string>
+#include <fstream>
+using namespace std;
+  int maxScore = 0;
+struct StudentType {
+    string studentFname;
+    string studentLname;
+    int testScore;
+    char grade;
+};
 
-# Precompiled Headers
-*.gch
-*.pch
+void findMaxScore (StudentType list[], int& maxScore, int listSize) {
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+    for (int i = 0; i < listSize; i++) {
+        if (list[i].testScore > maxScore && (list[i].testScore >= 0 && list[i].testScore <= 100)) {
+            maxScore = list[i].testScore;
+        }
+    }
+}
 
-# Fortran module files
-*.mod
-*.smod
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
 
-# Executables
-*.exe
-*.out
-*.app
+void initialize(ifstream& indata, ofstream& outdata, StudentType list[], int listSize) {
+  
+   
+
+    for (int i = 0; i < listSize; i++) {
+        indata >> list[i].studentFname >> list[i].studentLname >> list[i].testScore;
+
+        if (list[i].testScore < 0 || list[i].testScore > 100)
+        {
+            list[i].grade = '-';
+        }else {
+            if (list[i].testScore < 50) {
+            list[i].grade = 'D';
+        } else if (list[i].testScore < 72) {
+            list[i].grade = 'C';
+        } else if (list[i].testScore < 82) {
+            list[i].grade = 'B';
+        } else {
+            list[i].grade = 'A';
+        }
+
+        }
+    }
+
+    findMaxScore(list, maxScore, listSize);
+    
+   
+   
+
+    for (int j = 0; j < listSize; j++) {
+        outdata << list[j].studentLname << ", "
+                 << list[j].studentFname
+                << "      " << list[j].testScore
+                << "      " <<  list[j].grade << endl;
+    }
+
+    outdata << "\nThe highest test score is: " << maxScore << endl;
+    
+
+    
+}
+void findNameHaveMaxScore (StudentType list[], int& maxScore, int listSize ,ofstream& outdata) {
+    for (int i = 0; i < listSize; i++) {
+        if (list[i].testScore == maxScore ) {
+            outdata <<  list[i].studentFname << " " << list[i].studentLname ;
+        }
+    }
+}
+
+
+
+int main() {
+    ifstream infile;
+    ofstream outfile;
+
+    infile.open("tes.txt");
+    if (!infile) {
+        cout << "Cannot open the input file." << endl;
+        return 1;
+    }
+
+    outfile.open("output.txt"); 
+    if (!outfile) {
+        cout << "Cannot open the output file." << endl;
+        return 1;
+    }
+
+    int size = 20;
+    StudentType students[size];
+
+    initialize(infile, outfile, students, size);
+   findNameHaveMaxScore(students , maxScore , size , outfile ) ;
+
+
+    infile.close();
+    outfile.close();
+
+    cout << "Data has been written to output.txt" << endl;
+    return 0;
+}
