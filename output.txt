@@ -1,0 +1,23 @@
+Adjie, Bagas      100      A
+badut, fery      75      B
+galak, anjing      55      C
+bum, bum      110      -
+limon, lisa      68      C
+kibo, andre      83      A
+tuna, sari      92      A
+pram, tari      47      D
+kosa, gilang      78      B
+rina, juna      69      C
+rama, dika      82      A
+wati, budi      59      C
+seto, indra      91      A
+buaya, maya      76      B
+kota, gita      87      A
+tata, ardi      54      C
+lari, rina      79      B
+kadi, jamal      85      A
+rosa, santi      73      B
+kuda, rian      88      A
+
+The highest test score is: 100
+Bagas Adjie
